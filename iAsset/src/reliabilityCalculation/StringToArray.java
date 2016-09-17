@@ -2,23 +2,29 @@ package reliabilityCalculation;
 
 public class StringToArray {
 
-	int NoOfRows, NoOfColumns;
+	int NoOfRows, NoOfColumns, maxLevelCount;
+	int[][] intSAdd;;
+	int[][] intPAdd;
+	int[] intIsLMA;
+	double[] intrRel;
 
-	//	String[] SysName = new String[NoOfRows];
-	//	String[] StrSAdd = new String[NoOfRows];
-	//	String[] StrPAdd = new String[NoOfRows];
-	//		int[] IsLMA = new int[NoOfRows];
-
+	
+	
 	public String[][] getData(){
-
-		NoOfRows = 7;
-
-		//		String[] SysName = {"1", "2", "A", "B", "3", "4", "5"};
-		//		String[] StrSAdd = {"1", "2", "3", "3", "3.1", "3.2", "3.1"};
-		//		String[] StrPAdd = {"1", "1", "1", "1.1", "1.1", "1.1", "1.2"};
-		//		String[] IsLMA = {"1", "1", "0", "0", "1", "1", "1"};
-
-		String[][] Data = {{"System", "0.", "0.", "0", "", ""}, {"1", "1.", "1.", "1", "10000", "2.5"}, {"2", "1.", "1.", "1", "10000", "2.5"}, {"A", "3.", "1.2.", "0", "", ""}, {"B", "3.", "1.1.", "0", "", ""}, {"3", "3.1.", "1.1.", "1", "10000", "2.5"}, {"4", "3.2.", "1.1.", "1", "10000", "2.5"}, {"5", "3.1.", "1.2.", "1", "10000", "2.5"}}; 
+ 
+		String[][] Data = {{"System", "0.",   "1.",   "0", "",      ""}, 
+							{"1",     "1.",   "1.",   "1", "10000", "2.5"},
+							{"2",     "2.",   "1.",   "1", "10000", "2.5"},
+							{"A",     "3.",   "1.",   "0", "",      ""},
+							{"B",     "3.",   "1.1.", "0", "",      ""},
+							{"3",     "3.1.", "1.1.", "1", "15000", "2.5"},
+							{"4",     "3.2.", "1.1.", "1", "12000", "2.5"},
+							{"C",     "3.",   "1.2.", "0", "",      ""},
+							{"5",     "3.1.", "1.2.", "1", "12000", "2.5"},
+							{"6",     "3.2.", "1.2.", "1", "10000", "2.5"}}; 
+		NoOfRows = Data.length;
+		NoOfColumns = Data[0].length;
+		
 		return Data;
 	}
 
@@ -45,7 +51,7 @@ public class StringToArray {
 
 	public int[][] getIntSAdd(String[][] Data){
 
-		int maxLevelCount = 0;
+		maxLevelCount = 0;
 		for(int i=0; i<Data.length; i++){
 
 			int j = 0; char charInFocus;
@@ -66,9 +72,9 @@ public class StringToArray {
 		}
 		//		System.out.println("maxLevelCount: "+maxLevelCount);
 
-		int[][] intSAdd = new int[Data.length][maxLevelCount];
 		int startIndex, endIndex, j, k;
-
+		intSAdd = new int[NoOfRows][maxLevelCount];
+		
 		for(int i = 0; i<Data.length; i++){
 
 			startIndex=0;
@@ -88,12 +94,12 @@ public class StringToArray {
 			}
 		}
 
-		for(int i = 0 ; i<Data.length; i++){
-			for(int n = 0 ; n<maxLevelCount; n++){
-				System.out.print(intSAdd[i][n]+"\t");
-			}
-			System.out.println();
-		}
+//		for(int i = 0 ; i<Data.length; i++){
+//			for(int n = 0 ; n<maxLevelCount; n++){
+//				System.out.print(intSAdd[i][n]+"\t");
+//			}
+//			System.out.println();
+//		}
 		return intSAdd;
 	}
 
@@ -125,9 +131,9 @@ public class StringToArray {
 		}
 		//		System.out.println("maxLevelCount: "+maxLevelCount);
 
-		int[][] intPAdd = new int[Data.length][maxLevelCount];
 		int startIndex, endIndex, j, k;
-
+		intPAdd = new int[NoOfRows][maxLevelCount];
+		
 		for(int i = 0; i<Data.length; i++){
 
 			startIndex=0;
@@ -147,21 +153,19 @@ public class StringToArray {
 			}
 		}
 
-		for(int i = 0 ; i<Data.length; i++){
-			for(int n = 0 ; n<maxLevelCount; n++){
-				System.out.print(intPAdd[i][n]+"\t");
-			}
-			System.out.println();
-		}
+//		for(int i = 0 ; i<Data.length; i++){
+//			for(int n = 0 ; n<maxLevelCount; n++){
+//				System.out.print(intPAdd[i][n]+"\t");
+//			}
+//			System.out.println();
+//		}
 		return intPAdd;
 	}
 
 
 
 	public int[] getIntIsLMA(String[][] Data){
-
-		int[] intIsLMA = new int[Data.length];
-
+		intIsLMA = new int[NoOfRows];
 		for(int i = 0; i<Data.length; i++){
 			intIsLMA[i] = Integer.parseInt(Data[i][3]);				
 		}
@@ -198,6 +202,25 @@ public class StringToArray {
 			}
 		}
 		return doubleBeta;
+	}
+
+	
+	
+	
+	public double[] calculateRelaibility(double[] doubleEta, double[] doubleBeta, int[] intIsLMA, double time){
+
+		intrRel = new double[NoOfRows];
+
+		for(int i=0; i<doubleEta.length; i++){
+		
+			if(intIsLMA[i]==1){
+			intrRel[i] = Math.pow(Math.E, (-1)*(Math.pow((time/doubleEta[i]), doubleBeta[i])));
+			}
+						
+		}
+		
+		return intrRel;
+
 	}
 
 }
