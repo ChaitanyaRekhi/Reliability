@@ -11,7 +11,7 @@ public class Main {
 		StringToArray StrToArrObject = new StringToArray();
 		String[][] Data = StrToArrObject.getData();
 		StrToArrObject.printData(Data);
-		
+		StrToArrObject.getIntSAdd(Data);
 	}
 
 }
