@@ -18,9 +18,13 @@ public class StringToArray {
 		//		String[] StrPAdd = {"1", "1", "1", "1.1", "1.1", "1.1", "1.2"};
 		//		String[] IsLMA = {"1", "1", "0", "0", "1", "1", "1"};
 
-		String[][] Data = {{"1", "1.", "1.", "1", "10000", "2.5"}, {"2", "1.", "1.", "1", "10000", "2.5"}, {"A", "3.", "1.2.", "0", "10000", "2.5"}, {"B", "3.", "1.1.", "0", "10000", "2.5"}, {"3", "3.1.", "1.1.", "1", "10000", "2.5"}, {"4", "3.2.", "1.1.", "1", "10000", "2.5"}, {"5", "3.1.", "1.2.", "1", "10000", "2.5"}}; 
+		String[][] Data = {{"System", "0.", "0.", "0", "", ""}, {"1", "1.", "1.", "1", "10000", "2.5"}, {"2", "1.", "1.", "1", "10000", "2.5"}, {"A", "3.", "1.2.", "0", "", ""}, {"B", "3.", "1.1.", "0", "", ""}, {"3", "3.1.", "1.1.", "1", "10000", "2.5"}, {"4", "3.2.", "1.1.", "1", "10000", "2.5"}, {"5", "3.1.", "1.2.", "1", "10000", "2.5"}}; 
 		return Data;
 	}
+
+
+
+
 
 	public void printData(String[][] Data){
 
@@ -33,6 +37,11 @@ public class StringToArray {
 		//		System.out.println("Data.length: "+ Data.length);
 		//		System.out.println("Data[0].length: "+ Data[0].length);
 	}
+
+
+
+
+
 
 	public int[][] getIntSAdd(String[][] Data){
 
@@ -89,6 +98,10 @@ public class StringToArray {
 	}
 
 
+
+
+
+
 	public int[][] getIntPAdd(String[][] Data){
 
 		int maxLevelCount = 0;
@@ -143,6 +156,8 @@ public class StringToArray {
 		return intPAdd;
 	}
 
+
+
 	public int[] getIntIsLMA(String[][] Data){
 
 		int[] intIsLMA = new int[Data.length];
@@ -153,24 +168,36 @@ public class StringToArray {
 		return intIsLMA;
 	}
 
+
+
+
+
 	public double[] getDoubleEta(String[][] Data) {
 
 		double[] doubleEta = new double[Data.length];
-		
+
 		for(int i = 0; i<Data.length; i++){
-			doubleEta[i] = Double.parseDouble(Data[i][4]);
+			if(Data[i][4].isEmpty()==false){
+				doubleEta[i] = Double.parseDouble(Data[i][4]);
+			}
 		}
 		return doubleEta;
 	}
+
+
+
+
 
 	public double[] getDoubleBeta(String[][] Data) {
 
 		double[] doubleBeta = new double[Data.length];
 
 		for(int i = 0; i<Data.length; i++){
-			doubleBeta[i] = Double.parseDouble(Data[i][5]);				
+			if(Data[i][5].isEmpty()==false){
+				doubleBeta[i] = Double.parseDouble(Data[i][5]);				
+			}
 		}
 		return doubleBeta;
 	}
-	
+
 }
