@@ -4,14 +4,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-//		CompRelFromEtaBeta CRObject = new CompRelFromEtaBeta();
-//		double compRel = CRObject.calculateRelaibility(12000, 1.9, 5000);
-//		System.out.println(compRel);
-		
 		StringToArray StrToArrObject = new StringToArray();
 		String[][] Data = StrToArrObject.getData();
 		StrToArrObject.printData(Data);
-		StrToArrObject.getIntSAdd(Data);
+		System.out.println("------------------------S Address----------------");
+//		StrToArrObject.getIntSAdd(Data);
+		System.out.println("------------------------P Address----------------");
+//		StrToArrObject.getIntPAdd(Data);
+
+		CompRelFromEtaBeta CRObject = new CompRelFromEtaBeta();
+		double[] compRel = CRObject.calculateRelaibility(StrToArrObject.getDoubleEta(Data), StrToArrObject.getDoubleBeta(Data), 5000);
+		
+		for(int i=0; i<7; i++){
+		System.out.println(compRel[i]);
+		}
 	}
 
 }
